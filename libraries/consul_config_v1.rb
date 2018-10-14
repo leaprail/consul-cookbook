@@ -60,6 +60,7 @@ module ConsulCookbook
       attribute(:bootstrap, equal_to: [true, false])
       attribute(:bootstrap_expect, kind_of: Integer)
       attribute(:ca_file, kind_of: String)
+      attribute(:ca_path, kind_of: String)
       attribute(:cert_file, kind_of: String)
       attribute(:check_update_interval, kind_of: String)
       attribute(:client_addr, kind_of: String)
@@ -216,7 +217,7 @@ module ConsulCookbook
 
         for_keeps << %i(discovery_max_stale) if node['consul']['version'] > '1.0.6'
         for_keeps << %i(bootstrap bootstrap_expect) if server
-        for_keeps << %i(ca_file cert_file key_file) if tls?
+        for_keeps << %i(ca_file ca_path cert_file key_file) if tls?
         for_keeps = for_keeps.flatten
 
         raw_config = to_hash
